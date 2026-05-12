@@ -2,20 +2,19 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=2.0">
     <title>避尘手册</title>
     <style>
         *{margin:0;padding:0;box-sizing:border-box;}
         body{background:#f0f2f5;font-family:"PingFang SC","微软雅黑",sans-serif;scroll-behavior: smooth;}
 
-        /* 顶部标题 */
         .header{
             text-align:center;
             margin:30px 0 10px;
             padding:0 20px;
         }
         .header h1{
-            font-size:26px;
+            font-size:50px;
             color:#2c3e50;
             font-weight:600;
             margin-bottom:8px;
@@ -25,7 +24,6 @@
             color:#7f8c8d;
         }
 
-        /* 布局 —— 手机自动变单列 */
         .container{
             display:flex;
             max-width:1400px;
@@ -34,7 +32,6 @@
             padding:0 15px;
         }
 
-        /* 左侧菜单 */
         .sidebar{
             width:260px;
             background:#fff;
@@ -91,7 +88,6 @@
             height:18px;
         }
 
-        /* 右侧内容 */
         .content{
             flex:1;
             display:flex;
@@ -112,41 +108,69 @@
             display:block;
         }
         .top-row{
-            display:flex;
-            align-items:center;
-            justify-content:space-between;
             margin-bottom:20px;
         }
         .top-row h2{
-            font-size:19px;
+            font-size:22px;
             color:#222;
-        }
-        .right-check{
-            display:flex;
-            align-items:center;
-            gap:6px;
-            font-size:14px;
-        }
-        .right-check input{
-            width:20px;
-            height:20px;
+            text-align: center;
         }
         .step{
-            margin:22px 0;
+            margin:28px 0;
         }
         .step p{
-            font-size:15px;
+            font-size:22px;
+            line-height:1.7;
+            margin-bottom:15px;
             color:#333;
-            margin-bottom:10px;
-            line-height:1.5;
         }
         .step-img{
-            width:100%;
+            max-width:50%;
+            display:block;
+            margin:15px auto;
             border-radius:12px;
-            box-shadow:0 2px 8px rgba(0,0,0,0.06);
+        }
+        .bottom-check{
+            margin-top:40px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            gap:10px;
+            font-size:18px;
+        }
+        .bottom-check input{
+            width:22px;
+            height:22px;
         }
 
-        /* 手机自适应 */
+        /* 制作初心 右侧卡片样式 */
+        .about-card{
+            display:none;
+        }
+        .about-card.show{
+            display:block;
+        }
+        .about-content{
+            font-size:22px;
+            line-height:1.8;
+            color:#2c3e50;
+            text-align:left;
+            padding:20px;
+            white-space: pre-line;
+        }
+        .close-btn{
+            display:inline-block;
+            background:#409eff;
+            color:#fff;
+            border:none;
+            padding:10px 20px;
+            border-radius:10px;
+            font-size:18px;
+            cursor:pointer;
+            margin:20px auto 0;
+            display:block;
+        }
+
         @media (max-width:768px){
             .container{
                 flex-direction:column;
@@ -159,6 +183,9 @@
             }
             .card{
                 scroll-margin-top: 100px;
+            }
+            .step-img{
+                max-width:80%;
             }
         }
 
@@ -226,14 +253,6 @@
                 <input type="checkbox" class="menu-check" data-target="bilibili">
             </div>
 
-            <div class="menu-item" data-target="wangzhe">
-                <div class="menu-left">
-                    <img class="app-icon" src="icon/wangzhe.png">
-                    <span class="app-name">王者荣耀</span>
-                </div>
-                <input type="checkbox" class="menu-check" data-target="wangzhe">
-            </div>
-
             <div class="menu-item" data-target="alipay">
                 <div class="menu-left">
                     <img class="app-icon" src="icon/alipay.png">
@@ -242,166 +261,393 @@
                 <input type="checkbox" class="menu-check" data-target="alipay">
             </div>
 
-            <div class="menu-item" data-target="pubg">
+            <div class="menu-item" data-target="wangzhe">
                 <div class="menu-left">
-                    <img class="app-icon" src="icon/pubg.png">
-                    <span class="app-name">和平精英</span>
+                    <img class="app-icon" src="icon/wangzhe.png">
+                    <span class="app-name">王者荣耀</span>
                 </div>
-                <input type="checkbox" class="menu-check" data-target="pubg">
+                <input type="checkbox" class="menu-check" data-target="wangzhe">
+            </div>
+
+      
+
+            <!-- 制作初心 按钮 -->
+            <div class="menu-item" id="show-about">
+                <div class="menu-left">
+                    <span class="app-name" style="font-size:16px;">💌 制作初心</span>
+                </div>
             </div>
 
         </div>
 
         <div class="content">
-    <div class="card tutorial show" id="wechat">
-        <div class="top-row">
-            <h2>微信 拉黑教程</h2>
-            <div class="right-check">
-                <input type="checkbox" id="r-wechat">
-                <label for="r-wechat">已完成拉黑</label>
+            <!-- 制作初心 右侧内容 -->
+            <div class="card about-card" id="about-card">
+                <div class="top-row">
+                    <h2>💌 制作初心</h2>
+                </div>
+                <div class="about-content">
+我制作这本避尘手册，
+是希望自己能真正远离消耗、远离烦恼、远离一切不开心的人和事。
+
+避尘，不是逃避，而是保护自己。
+拉黑，不是狠心，而是及时止损。
+
+愿我们都能守住自己的清净，
+把时间留给值得的人，把心情留给自己。
+从此不被打扰，自在安宁。
+                </div>
+                <button class="close-btn" id="close-about">返回教程</button>
             </div>
-        </div>
 
-        <!-- 第一级：首先必须先拉黑好友再删除 -->
-        <div class="part-title" style="font-size:25px;font-weight:600;margin:20px 0 10px;color:#2c3e50;border-left:4px solid #409eff;padding-left:10px;">
-           首先必须先拉黑好友再删除
-        </div>
-        <div class="step">
-            <p style="font-size:22px;line-height:1.7;margin-bottom:12px;">1. 进入对方个人主页并点击右上角「...」更多按钮</p>
-            <img class="step-img" src="wechat1.jpg" style="max-width:40%;display:block;margin:0 auto;border-radius:12px;">
-        </div>
-        <div class="step">
-            <p style="font-size:22px;line-height:1.7;margin-bottom:12px;">2. 开启加入黑名单并确认</p>
-            <img class="step-img" src="wechat2.jpg" style="max-width:40%;display:block;margin:0 auto;border-radius:12px;">
-        </div>
-        <div class="step">
-            <p style="font-size:22px;line-height:1.7;margin-bottom:12px;">3.删除好友 </p>
-            <img class="step-img" src="wechat3.jpg" style="max-width:40%;display:block;margin:0 auto;border-radius:12px;">
-        </div>
+            <!-- 微信 -->
+            <div class="card tutorial show" id="wechat">
+                <div class="top-row">
+                    <h2>微信 拉黑教程</h2>
+                </div>
 
-        <!-- 第二级：禁止别人加我好友 -->
-        <div class="part-title" style="font-size:25px;font-weight:600;margin:30px 0 10px;color:#2c3e50;border-left:4px solid #409eff;padding-left:10px;">
-            禁止别人加我好友
-        </div>
-        <div class="step">
-            <p style="font-size:22px;line-height:1.7;margin-bottom:12px;">1. 打开微信设置，进入朋友权限</p>
-            <img class="step-img" src="wechat4.jpg" style="max-width:40%;display:block;margin:0 auto;border-radius:12px;">
-        </div>
-        <div class="step">
-            <p style="font-size:22px;line-height:1.7;margin-bottom:12px;">2. 找到添加我的方式</p>
-            <img class="step-img" src="wechat5.jpg" style="max-width:40%;display:block;margin:0 auto;border-radius:12px;">
-        </div>
-        <div class="step">
-            <p style="font-size:22px;line-height:1.7;margin-bottom:12px;">3. 关闭所有添加入口，彻底拒绝陌生人添加</p>
-            <img class="step-img" src="wechat6.jpg" style="max-width:40%;display:block;margin:0 auto;border-radius:12px;">
-        </div>
+                <div class="part-title" style="font-size:25px;font-weight:600;margin:20px 0 10px;color:#2c3e50;border-left:4px solid #409eff;padding-left:10px;">
+                    首先必须先拉黑好友再删除
+                </div>
+                <div class="step">
+                    <p style="font-size:22px;line-height:1.7;margin-bottom:12px;">1. 进入对方个人主页并点击右上角「...」更多按钮</p>
+                    <img class="step-img" src="wechat1.jpg">
+                </div>
+                <div class="step">
+                    <p style="font-size:22px;line-height:1.7;margin-bottom:12px;">2. 开启加入黑名单并确认</p>
+                    <img class="step-img" src="wechat2.jpg">
+                </div>
+                <div class="step">
+                    <p style="font-size:22px;line-height:1.7;margin-bottom:12px;">3. 删除好友</p>
+                    <img class="step-img" src="wechat3.jpg">
+                </div>
+
+                <div class="part-title" style="font-size:25px;font-weight:600;margin:30px 0 10px;color:#2c3e50;border-left:4px solid #409eff;padding-left:10px;">
+                    禁止别人加我好友
+                </div>
+                <div class="step">
+                    <p style="font-size:22px;line-height:1.7;margin-bottom:12px;">1. 打开微信设置，进入朋友权限</p>
+                    <img class="step-img" src="wechat4.jpg">
+                </div>
+                <div class="step">
+                    <p style="font-size:22px;line-height:1.7;margin-bottom:12px;">2. 找到添加我的方式</p>
+                    <img class="step-img" src="wechat5.jpg">
+                </div>
+                <div class="step">
+                    <p style="font-size:22px;line-height:1.7;margin-bottom:12px;">3. 关闭所有添加入口，彻底拒绝陌生人添加</p>
+                    <img class="step-img" src="wechat6.jpg">
+                </div>
+
+              <div class="bottom-check" style="margin-top:30px; text-align:center; border:2px solid #409eff; padding:14px; border-radius:12px; background:#e8f3ff;">
+    <input type="checkbox" id="r-wechat" style="width:24px; height:24px;">
+    <label for="r-wechat" style="font-size:25px; font-weight:bold; color:#2c3e50; margin-left:8px;">已完成拉黑</label>
+</div>
+            </div>
+
+           <!-- QQ -->
+<div class="card tutorial" id="qq">
+    <div class="top-row">
+        <h2>QQ 拉黑教程</h2>
+    </div>
+
+    <!-- 拉黑好友 -->
+    <div class="part-title" style="font-size:25px;font-weight:600;margin:20px 0 10px;color:#2c3e50;border-left:4px solid #409eff;padding-left:10px;">
+        拉黑好友
+    </div>
+    <div class="step">
+        <p style="font-size:22px;line-height:1.7;margin-bottom:12px;">1. 进入对方资料卡,点击右上角设置</p>
+        <img class="step-img" src="qq1.jpg" style="max-width:50%;display:block;margin:0 auto;border-radius:12px;">
+    </div>
+    <div class="step">
+        <p style="font-size:22px;line-height:1.7;margin-bottom:12px;">2. 选择拉黑并确认</p>
+        <img class="step-img" src="qq2.jpg" style="max-width:50%;display:block;margin:0 auto;border-radius:12px;">
+    </div>
+
+    <!-- 禁止别人找到我 -->
+    <div class="part-title" style="font-size:25px;font-weight:600;margin:30px 0 10px;color:#2c3e50;border-left:4px solid #409eff;padding-left:10px;">
+        禁止别人找到我
+    </div>
+    <div class="step">
+        <p style="font-size:22px;line-height:1.7;margin-bottom:12px;">1. 点击设置选择隐私管理</p>
+        <img class="step-img" src="qq3.jpg" style="max-width:50%;display:block;margin:0 auto;border-radius:12px;">
+    </div>
+<div class="step">
+        <p style="font-size:22px;line-height:1.7;margin-bottom:12px;">2. 关闭对方能找到我们的选项</p>
+        <img class="step-img" src="qq4.jpg" style="max-width:50%;display:block;margin:0 auto;border-radius:12px;">
+    </div>
+
+    <div class="bottom-check" style="margin-top:30px; text-align:center; border:2px solid #409eff; padding:14px; border-radius:12px; background:#e8f3ff;">
+        <input type="checkbox" id="r-qq" style="width:24px; height:24px;">
+        <label for="r-qq" style="font-size:20px; font-weight:bold; color:#2c3e50; margin-left:8px;">已完成拉黑</label>
     </div>
 </div>
 
-            <div class="card tutorial" id="qq">
-                <div class="top-row">
-                    <h2>QQ 拉黑教程</h2>
-                    <div class="right-check">
-                        <input type="checkbox" id="r-qq">
-                        <label for="r-qq">已完成拉黑</label>
-                    </div>
-                </div>
-                <div class="step"><p>1. 进入对方资料卡</p><img class="step-img" src="qq1.png"></div>
-                <div class="step"><p>2. 点击右上角设置</p><img class="step-img" src="qq2.png"></div>
-                <div class="step"><p>3. 选择拉黑并确认</p><img class="step-img" src="qq3.png"></div>
-            </div>
+           <!-- 抖音 -->
+<div class="card tutorial" id="douyin">
+    <div class="top-row">
+        <h2>抖音 拉黑教程</h2>
+    </div>
 
-            <div class="card tutorial" id="douyin">
-                <div class="top-row">
-                    <h2>抖音 拉黑教程</h2>
-                    <div class="right-check">
-                        <input type="checkbox" id="r-douyin">
-                        <label for="r-douyin">已完成拉黑</label>
-                    </div>
-                </div>
-                <div class="step"><p>1. 进入对方主页</p><img class="step-img" src="douyin1.png"></div>
-                <div class="step"><p>2. 点击右上角三个点</p><img class="step-img" src="douyin2.png"></div>
-                <div class="step"><p>3. 点击拉黑确认</p><img class="step-img" src="douyin3.png"></div>
-            </div>
+    <!-- 拉黑用户 -->
+    <div class="part-title" style="font-size:25px;font-weight:600;margin:20px 0 10px;color:#2c3e50;border-left:4px solid #409eff;padding-left:10px;">
+        拉黑用户
+    </div>
+    <div class="step">
+        <p style="font-size:22px;line-height:1.7;margin-bottom:12px;">1. 进入对方主页,点击右上角三个点</p>
+        <img class="step-img" src="douyin1.jpg" style="max-width:50%;display:block;margin:0 auto;border-radius:12px;">
+    </div>
+    <div class="step">
+        <p style="font-size:22px;line-height:1.7;margin-bottom:12px;">2. 点击拉黑确认</p>
+        <img class="step-img" src="douyin2.jpg" style="max-width:50%;display:block;margin:0 auto;border-radius:12px;">
+    </div>
 
-            <div class="card tutorial" id="kuaishou">
-                <div class="top-row">
-                    <h2>快手 拉黑教程</h2>
-                    <div class="right-check">
-                        <input type="checkbox" id="r-kuaishou">
-                        <label for="r-kuaishou">已完成拉黑</label>
-                    </div>
-                </div>
-                <div class="step"><p>1. 进入对方主页</p><img class="step-img" src="kuaishou1.png"></div>
-                <div class="step"><p>2. 点击右上角更多</p><img class="step-img" src="kuaishou2.png"></div>
-                <div class="step"><p>3. 确认拉黑</p><img class="step-img" src="kuaishou3.png"></div>
-            </div>
+    <!-- 禁止别人找到我 -->
+    <div class="part-title" style="font-size:25px;font-weight:600;margin:30px 0 10px;color:#2c3e50;border-left:4px solid #409eff;padding-left:10px;">
+        禁止别人找到我
+    </div>
+	<div class="step">
+        <p style="font-size:22px;line-height:1.7;margin-bottom:12px;">1. 点击设置</p>
+        <img class="step-img" src="douyin3.jpg" style="max-width:50%;display:block;margin:0 auto;border-radius:12px;">
+    </div>
+	<div class="step">
+        <p style="font-size:22px;line-height:1.7;margin-bottom:12px;">2. 点击隐私设置</p>
+        <img class="step-img" src="douyin4.jpg" style="max-width:50%;display:block;margin:0 auto;border-radius:12px;">
+    </div>
+<div class="step">
+        <p style="font-size:22px;line-height:1.7;margin-bottom:12px;">3. 关闭对方能找到我们的选项</p>
+        <img class="step-img" src="douyin5.jpg" style="max-width:50%;display:block;margin:0 auto;border-radius:12px;">
+    </div>
 
-            <div class="card tutorial" id="xiaohongshu">
-                <div class="top-row">
-                    <h2>小红书 拉黑教程</h2>
-                    <div class="right-check">
-                        <input type="checkbox" id="r-xiaohongshu">
-                        <label for="r-xiaohongshu">已完成拉黑</label>
-                    </div>
-                </div>
-                <div class="step"><p>1. 进入对方主页</p><img class="step-img" src="xiaohongshu1.png"></div>
-                <div class="step"><p>2. 点击右上角三个点</p><img class="step-img" src="xiaohongshu2.png"></div>
-                <div class="step"><p>3. 选择拉黑</p><img class="step-img" src="xiaohongshu3.png"></div>
-            </div>
+    <div class="bottom-check" style="margin-top:30px; text-align:center; border:2px solid #409eff; padding:14px; border-radius:12px; background:#e8f3ff;">
+        <input type="checkbox" id="r-douyin" style="width:24px; height:24px;">
+        <label for="r-douyin" style="font-size:20px; font-weight:bold; color:#2c3e50; margin-left:8px;">已完成拉黑</label>
+    </div>
+</div>
 
-            <div class="card tutorial" id="bilibili">
-                <div class="top-row">
-                    <h2>B站 拉黑教程</h2>
-                    <div class="right-check">
-                        <input type="checkbox" id="r-bilibili">
-                        <label for="r-bilibili">已完成拉黑</label>
-                    </div>
-                </div>
-                <div class="step"><p>1. 进入对方空间</p><img class="step-img" src="bilibili1.png"></div>
-                <div class="step"><p>2. 点击更多</p><img class="step-img" src="bilibili2.png"></div>
-                <div class="step"><p>3. 加入黑名单</p><img class="step-img" src="bilibili3.png"></div>
-            </div>
+            <!-- 快手 -->
+<div class="card tutorial" id="kuaishou">
+    <div class="top-row">
+        <h2>快手 拉黑教程</h2>
+    </div>
 
+    <!-- 拉黑用户 -->
+    <div class="part-title" style="font-size:25px;font-weight:600;margin:20px 0 10px;color:#2c3e50;border-left:4px solid #409eff;padding-left:10px;">
+        拉黑用户
+    </div>
+    <div class="step">
+        <p style="font-size:22px;line-height:1.7;margin-bottom:12px;">1. 进入对方主页,点击更多设置</p>
+        <img class="step-img" src="kuaishou1.jpg" style="max-width:50%;display:block;margin:0 auto;border-radius:12px;">
+    </div>
+    <div class="step">
+        <p style="font-size:22px;line-height:1.7;margin-bottom:12px;">2. 确认拉黑</p>
+        <img class="step-img" src="kuaishou2.jpg" style="max-width:50%;display:block;margin:0 auto;border-radius:12px;">
+    </div>
+  
+
+    <!-- 禁止别人找到我 -->
+    <div class="part-title" style="font-size:25px;font-weight:600;margin:30px 0 10px;color:#2c3e50;border-left:4px solid #409eff;padding-left:10px;">
+        禁止别人找到我
+    </div>
+	  <div class="step">
+        <p style="font-size:22px;line-height:1.7;margin-bottom:12px;">1. 点击设置</p>
+        <img class="step-img" src="kuaishou3.jpg" style="max-width:50%;display:block;margin:0 auto;border-radius:12px;">
+    </div>
+	  <div class="step">
+        <p style="font-size:22px;line-height:1.7;margin-bottom:12px;">2. 选择隐私设置</p>
+        <img class="step-img" src="kuaishou4.jpg" style="max-width:50%;display:block;margin:0 auto;border-radius:12px;">
+    </div>
+	  <div class="step">
+        <p style="font-size:22px;line-height:1.7;margin-bottom:12px;">3. 修改设置,防止被找到</p>
+        <img class="step-img" src="kuaishou5.jpg" style="max-width:50%;display:block;margin:0 auto;border-radius:12px;">
+    </div>
+
+    <div class="bottom-check" style="margin-top:30px; text-align:center; border:2px solid #409eff; padding:14px; border-radius:12px; background:#e8f3ff;">
+        <input type="checkbox" id="r-kuaishou" style="width:24px; height:24px;">
+        <label for="r-kuaishou" style="font-size:20px; font-weight:bold; color:#2c3e50; margin-left:8px;">已完成拉黑</label>
+    </div>
+</div>
+
+           <!-- 小红书 -->
+<div class="card tutorial" id="xiaohongshu">
+    <div class="top-row">
+        <h2>小红书 拉黑教程</h2>
+    </div>
+
+    <!-- 拉黑用户 -->
+    <div class="part-title" style="font-size:25px;font-weight:600;margin:20px 0 10px;color:#2c3e50;border-left:4px solid #409eff;padding-left:10px;">
+        拉黑用户
+    </div>
+    <div class="step">
+        <p style="font-size:22px;line-height:1.7;margin-bottom:12px;">1. 进入对方主页,点击拉黑即可</p>
+        <img class="step-img" src="xiaohongshu1.jpg" style="max-width:50%;display:block;margin:0 auto;border-radius:12px;">
+    </div>
+   
+    
+
+    <!-- 禁止别人找到我 -->
+    <div class="part-title" style="font-size:25px;font-weight:600;margin:30px 0 10px;color:#2c3e50;border-left:4px solid #409eff;padding-left:10px;">
+        禁止别人找到我
+    </div>
+	 <div class="step">
+        <p style="font-size:22px;line-height:1.7;margin-bottom:12px;">1. 在自己的页面下点击左上角的[三根横线]</p>
+        <img class="step-img" src="xiaohongshu2.jpg" style="max-width:50%;display:block;margin:0 auto;border-radius:12px;">
+    </div>
+<div class="step">
+        <p style="font-size:22px;line-height:1.7;margin-bottom:12px;">2. 点击下面的设置,然后选择隐私设置</p>
+        <img class="step-img" src="xiaohongshu3.jpg" style="max-width:50%;display:block;margin:0 auto;border-radius:12px;">
+	 <img class="step-img" src="xiaohongshu4.jpg" style="max-width:50%;display:block;margin:0 auto;border-radius:12px;">
+    </div>
+	<div class="step">
+        <p style="font-size:22px;line-height:1.7;margin-bottom:12px;">3. 修改,防止别人偷窥和添加我们好友</p>
+        <img class="step-img" src="xiaohongshu5.jpg" style="max-width:50%;display:block;margin:0 auto;border-radius:12px;">
+    </div>
+	
+
+    <div class="bottom-check" style="margin-top:30px; text-align:center; border:2px solid #409eff; padding:14px; border-radius:12px; background:#e8f3ff;">
+        <input type="checkbox" id="r-xiaohongshu" style="width:24px; height:24px;">
+        <label for="r-xiaohongshu" style="font-size:20px; font-weight:bold; color:#2c3e50; margin-left:8px;">已完成拉黑</label>
+    </div>
+</div>
+
+           <!-- B站 -->
+<div class="card tutorial" id="bilibili">
+    <div class="top-row">
+        <h2>B站 拉黑教程</h2>
+    </div>
+
+    <!-- 拉黑用户 -->
+    <div class="part-title" style="font-size:25px;font-weight:600;margin:20px 0 10px;color:#2c3e50;border-left:4px solid #409eff;padding-left:10px;">
+        拉黑用户
+    </div>
+    <div class="step">
+        <p style="font-size:22px;line-height:1.7;margin-bottom:12px;">1. 进入对方空间,点击右上角更多</p>
+        <img class="step-img" src="bilibili1.jpg" style="max-width:50%;display:block;margin:0 auto;border-radius:12px;">
+    </div>
+    <div class="step">
+        <p style="font-size:22px;line-height:1.7;margin-bottom:12px;">2. 加入黑名单</p>
+        <img class="step-img" src="bilibili2.jpg" style="max-width:50%;display:block;margin:0 auto;border-radius:12px;">
+    </div>
+
+    <!-- 防视奸 -->
+    <div class="part-title" style="font-size:25px;font-weight:600;margin:30px 0 10px;color:#2c3e50;border-left:4px solid #409eff;padding-left:10px;">
+        防视奸
+    </div>
+	 <div class="step">
+        <p style="font-size:22px;line-height:1.7;margin-bottom:12px;">1. 在我的界面往下滑,找到设置</p>
+        <img class="step-img" src="bilibili3.jpg" style="max-width:50%;display:block;margin:0 auto;border-radius:12px;">
+    </div>
+	 <div class="step">
+        <p style="font-size:22px;line-height:1.7;margin-bottom:12px;">2. 点击安全隐私,和空间隐私设置</p>
+       <img class="step-img" src="bilibili4.jpg" style="max-width:50%;display:block;margin:0 auto;border-radius:12px;">
+
+		<img class="step-img" src="bilibili5.jpg" style="max-width:50%;display:block;margin:0 auto;border-radius:12px;">
+	</div>
+
+	 <div class="step">
+        <p style="font-size:22px;line-height:1.7;margin-bottom:12px;">3. 修改设置,防止观看信息泄露</p>
+        <img class="step-img" src="bilibili6.jpg" style="max-width:50%;display:block;margin:0 auto;border-radius:12px;">
+    </div>
+
+    <!-- 防骚扰 -->
+    <div class="part-title" style="font-size:25px;font-weight:600;margin:30px 0 10px;color:#2c3e50;border-left:4px solid #409eff;padding-left:10px;">
+        防骚扰
+    </div>
+ <div class="step">
+        <p style="font-size:22px;line-height:1.7;margin-bottom:12px;">1. 在设置中点击防骚扰</p>
+        <img class="step-img" src="bilibili7.jpg" style="max-width:50%;display:block;margin:0 auto;border-radius:12px;">
+    </div>
+	 <div class="step">
+        <p style="font-size:22px;line-height:1.7;margin-bottom:12px;">2. 修改设置,防止被别人评论等</p>
+        <img class="step-img" src="bilibili8.jpg" style="max-width:50%;display:block;margin:0 auto;border-radius:12px;">
+    </div>
+
+    <!-- 禁止被推荐给其他人 -->
+    <div class="part-title" style="font-size:25px;font-weight:600;margin:30px 0 10px;color:#2c3e50;border-left:4px solid #409eff;padding-left:10px;">
+        禁止被推荐给其余人
+    </div>
+	 <div class="step">
+        <p style="font-size:22px;line-height:1.7;margin-bottom:12px;">1.在设置中找到隐私权限设置</p>
+        <img class="step-img" src="bilibili9.jpg" style="max-width:50%;display:block;margin:0 auto;border-radius:12px;">
+    </div>
+	 <div class="step">
+        <p style="font-size:22px;line-height:1.7;margin-bottom:12px;">2. 关闭推荐给别人的选项</p>
+        <img class="step-img" src="bilibili10.jpg" style="max-width:50%;display:block;margin:0 auto;border-radius:12px;">
+    </div>
+
+    <div class="bottom-check" style="margin-top:30px; text-align:center; border:2px solid #409eff; padding:14px; border-radius:12px; background:#e8f3ff;">
+        <input type="checkbox" id="r-bilibili" style="width:24px; height:24px;">
+        <label for="r-bilibili" style="font-size:20px; font-weight:bold; color:#2c3e50; margin-left:8px;">已完成拉黑</label>
+    </div>
+</div>
+
+<!-- 支付宝 -->
+<div class="card tutorial" id="alipay">
+    <div class="top-row">
+        <h2>支付宝 拉黑教程</h2>
+    </div>
+
+    <!-- 拉黑好友 -->
+    <div class="part-title" style="font-size:25px;font-weight:600;margin:20px 0 10px;color:#2c3e50;border-left:4px solid #409eff;padding-left:10px;">
+        拉黑好友
+    </div>
+    <div class="step">
+        <p style="font-size:22px;line-height:1.7;margin-bottom:12px;">1. 进入支付宝好友通讯录</p>
+        <img class="step-img" src="alipay1.jpg" style="max-width:50%;display:block;margin:0 auto;border-radius:12px;">
+    </div>
+    <div class="step">
+        <p style="font-size:22px;line-height:1.7;margin-bottom:12px;">2. 点击右上角[...]选项</p>
+        <img class="step-img" src="alipay2.jpg" style="max-width:50%;display:block;margin:0 auto;border-radius:12px;">
+    </div>
+    <div class="step">
+        <p style="font-size:22px;line-height:1.7;margin-bottom:12px;">3. 选择加入黑名单</p>
+        <img class="step-img" src="alipay3.jpg" style="max-width:50%;display:block;margin:0 auto;border-radius:12px;">
+    </div>
+
+    <!-- 禁止别人找到我 -->
+    <div class="part-title" style="font-size:25px;font-weight:600;margin:30px 0 10px;color:#2c3e50;border-left:4px solid #409eff;padding-left:10px;">
+        禁止别人找到我
+    </div>
+	    <div class="step">
+        <p style="font-size:22px;line-height:1.7;margin-bottom:12px;">1. 点击设置,找到用户保护中心</p>
+        <img class="step-img" src="alipay4.jpg" style="max-width:50%;display:block;margin:0 auto;border-radius:12px;">
+    </div>
+	    <div class="step">
+        <p style="font-size:22px;line-height:1.7;margin-bottom:12px;">2. 点击常用隐私设置</p>
+        <img class="step-img" src="alipay5.jpg" style="max-width:50%;display:block;margin:0 auto;border-radius:12px;">
+    </div>
+    <div class="step">
+        <p style="font-size:22px;line-height:1.7;margin-bottom:12px;">3. 防止对方找到我们</p>
+        <img class="step-img" src="alipay6.jpg" style="max-width:50%;display:block;margin:0 auto;border-radius:12px;">
+    </div>
+
+    <div class="bottom-check" style="margin-top:30px; text-align:center; border:2px solid #409eff; padding:14px; border-radius:12px; background:#e8f3ff;">
+        <input type="checkbox" id="r-alipay" style="width:24px; height:24px;">
+        <label for="r-alipay" style="font-size:20px; font-weight:bold; color:#2c3e50; margin-left:8px;">已完成拉黑</label>
+    </div>
+</div>
+
+            <!-- 王者荣耀 -->
             <div class="card tutorial" id="wangzhe">
                 <div class="top-row">
                     <h2>王者荣耀 拉黑教程</h2>
-                    <div class="right-check">
-                        <input type="checkbox" id="r-wangzhe">
-                        <label for="r-wangzhe">已完成拉黑</label>
-                    </div>
                 </div>
-                <div class="step"><p>1. 打开游戏好友界面</p><img class="step-img" src="wangzhe1.png"></div>
-                <div class="step"><p>2. 进入好友资料</p><img class="step-img" src="wangzhe2.png"></div>
-                <div class="step"><p>3. 屏蔽/拉黑</p><img class="step-img" src="wangzhe3.png"></div>
-            </div>
-
-            <div class="card tutorial" id="alipay">
-                <div class="top-row">
-                    <h2>支付宝 拉黑教程</h2>
-                    <div class="right-check">
-                        <input type="checkbox" id="r-alipay">
-                        <label for="r-alipay">已完成拉黑</label>
-                    </div>
+                <div class="step">
+                    <p>1. 打开游戏好友界面</p>
+                    <img class="step-img" src="wangzhe1.jpg">
                 </div>
-                <div class="step"><p>1. 进入对方支付宝个人主页</p><img class="step-img" src="alipay1.png"></div>
-                <div class="step"><p>2. 点击右上角更多选项</p><img class="step-img" src="alipay2.png"></div>
-                <div class="step"><p>3. 选择加入黑名单</p><img class="step-img" src="alipay3.png"></div>
-            </div>
-
-            <div class="card tutorial" id="pubg">
-                <div class="top-row">
-                    <h2>和平精英 拉黑教程</h2>
-                    <div class="right-check">
-                        <input type="checkbox" id="r-pubg">
-                        <label for="r-pubg">已完成拉黑</label>
-                    </div>
+                <div class="step">
+                    <p>2. 进入好友资料</p>
+                    <img class="step-img" src="wangzhe2.jpg">
                 </div>
-                <div class="step"><p>1. 打开游戏，进入好友列表</p><img class="step-img" src="pubg1.png"></div>
-                <div class="step"><p>2. 找到好友并查看资料</p><img class="step-img" src="pubg2.png"></div>
-                <div class="step"><p>3. 点击屏蔽/拉黑</p><img class="step-img" src="pubg3.png"></div>
+                <div class="step">
+                    <p>3. 屏蔽/拉黑</p>
+                    <img class="step-img" src="wangzhe3.jpg">
+                </div>
+                <div class="bottom-check">
+                    <input type="checkbox" id="r-wangzhe">
+                    <label for="r-wangzhe">已完成拉黑</label>
+                </div>
             </div>
-
         </div>
     </div>
 
@@ -415,23 +661,38 @@
                 let target = item.dataset.target;
                 let el = document.getElementById(target);
 
-                // 切换显示
                 menuItems.forEach(m => m.classList.remove('active'));
                 tutorials.forEach(t => t.classList.remove('show'));
+                document.getElementById('about-card').classList.remove('show');
 
                 item.classList.add('active');
                 el.classList.add('show');
 
-                // 手机自动跳转到截图
                 setTimeout(() => {
                     el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }, 100);
             });
         });
 
-        // 左右勾选同步
+        // 制作初心 显示/隐藏
+        const showAbout = document.getElementById('show-about');
+        const aboutCard = document.getElementById('about-card');
+        const closeAbout = document.getElementById('close-about');
+
+        showAbout.addEventListener('click', () => {
+            menuItems.forEach(m => m.classList.remove('active'));
+            tutorials.forEach(t => t.classList.remove('show'));
+            aboutCard.classList.add('show');
+        });
+
+        closeAbout.addEventListener('click', () => {
+            aboutCard.classList.remove('show');
+            document.getElementById('wechat').classList.add('show');
+            document.querySelector('[data-target="wechat"]').classList.add('active');
+        });
+
         const leftChecks = document.querySelectorAll('.menu-check');
-        const rightChecks = document.querySelectorAll('.right-check input');
+        const rightChecks = document.querySelectorAll('.bottom-check input');
 
         leftChecks.forEach(cb => {
             cb.addEventListener('change', () => {
