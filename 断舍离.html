@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>避尘手册</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{background:#f0f2f5;font-family:"PingFang SC","微软雅黑",sans-serif;scroll-behavior: smooth;}
+
+        /* 顶部标题 */
+        .header{
+            text-align:center;
+            margin:30px 0 10px;
+            padding:0 20px;
+        }
+        .header h1{
+            font-size:26px;
+            color:#2c3e50;
+            font-weight:600;
+            margin-bottom:8px;
+        }
+        .header p{
+            font-size:15px;
+            color:#7f8c8d;
+        }
+
+        /* 布局 —— 手机自动变单列 */
+        .container{
+            display:flex;
+            max-width:1400px;
+            margin:20px auto;
+            gap:20px;
+            padding:0 15px;
+        }
+
+        /* 左侧菜单 */
+        .sidebar{
+            width:260px;
+            background:#fff;
+            border-radius:16px;
+            box-shadow:0 4px 16px rgba(0,0,0,0.05);
+            padding:20px;
+            height: calc(100vh - 100px);
+            position:sticky;
+            top:30px;
+            overflow-y:auto;
+        }
+        .sidebar h2{
+            text-align:center;
+            font-size:16px;
+            margin-bottom:18px;
+            padding-bottom:10px;
+            border-bottom:1px solid #eee;
+            color:#333;
+        }
+        .menu-item{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            padding:12px 10px;
+            margin:6px 0;
+            border-radius:10px;
+            background:#f7f8fa;
+            cursor:pointer;
+            transition:0.2s;
+        }
+        .menu-item:hover{
+            background:#e8f3ff;
+        }
+        .menu-item.active{
+            background:#409eff;
+            color:#fff;
+        }
+        .menu-left{
+            display:flex;
+            align-items:center;
+            gap:10px;
+        }
+        .app-icon{
+            width:30px;
+            height:30px;
+            border-radius:8px;
+            object-fit:cover;
+        }
+        .app-name{
+            font-size:14px;
+        }
+        .menu-check{
+            width:18px;
+            height:18px;
+        }
+
+        /* 右侧内容 */
+        .content{
+            flex:1;
+            display:flex;
+            flex-direction:column;
+            gap:16px;
+        }
+        .card{
+            background:#fff;
+            border-radius:16px;
+            box-shadow:0 4px 16px rgba(0,0,0,0.05);
+            padding:24px;
+            scroll-margin-top: 30px;
+        }
+        .tutorial{
+            display:none;
+        }
+        .tutorial.show{
+            display:block;
+        }
+        .top-row{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            margin-bottom:20px;
+        }
+        .top-row h2{
+            font-size:19px;
+            color:#222;
+        }
+        .right-check{
+            display:flex;
+            align-items:center;
+            gap:6px;
+            font-size:14px;
+        }
+        .right-check input{
+            width:20px;
+            height:20px;
+        }
+        .step{
+            margin:22px 0;
+        }
+        .step p{
+            font-size:15px;
+            color:#333;
+            margin-bottom:10px;
+            line-height:1.5;
+        }
+        .step-img{
+            width:100%;
+            border-radius:12px;
+            box-shadow:0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        /* 手机自适应 */
+        @media (max-width:768px){
+            .container{
+                flex-direction:column;
+            }
+            .sidebar{
+                width:100%;
+                position:relative;
+                height:auto;
+                top:0;
+            }
+            .card{
+                scroll-margin-top: 100px;
+            }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>避尘手册</h1>
+        <p>避尘手册，予自己一份清净无扰</p>
+    </div>
+
+    <div class="container">
+        <div class="sidebar">
+            <h2>✅ 全平台拉黑清单</h2>
+
+            <div class="menu-item active" data-target="wechat">
+                <div class="menu-left">
+                    <img class="app-icon" src="icon/wechat.png">
+                    <span class="app-name">微信</span>
+                </div>
+                <input type="checkbox" class="menu-check" data-target="wechat">
+            </div>
+
+            <div class="menu-item" data-target="qq">
+                <div class="menu-left">
+                    <img class="app-icon" src="icon/qq.png">
+                    <span class="app-name">QQ</span>
+                </div>
+                <input type="checkbox" class="menu-check" data-target="qq">
+            </div>
+
+            <div class="menu-item" data-target="douyin">
+                <div class="menu-left">
+                    <img class="app-icon" src="icon/douyin.png">
+                    <span class="app-name">抖音</span>
+                </div>
+                <input type="checkbox" class="menu-check" data-target="douyin">
+            </div>
+
+            <div class="menu-item" data-target="kuaishou">
+                <div class="menu-left">
+                    <img class="app-icon" src="icon/kuaishou.png">
+                    <span class="app-name">快手</span>
+                </div>
+                <input type="checkbox" class="menu-check" data-target="kuaishou">
+            </div>
+
+            <div class="menu-item" data-target="xiaohongshu">
+                <div class="menu-left">
+                    <img class="app-icon" src="icon/xiaohongshu.png">
+                    <span class="app-name">小红书</span>
+                </div>
+                <input type="checkbox" class="menu-check" data-target="xiaohongshu">
+            </div>
+
+            <div class="menu-item" data-target="bilibili">
+                <div class="menu-left">
+                    <img class="app-icon" src="icon/bilibili.png">
+                    <span class="app-name">B站</span>
+                </div>
+                <input type="checkbox" class="menu-check" data-target="bilibili">
+            </div>
+
+            <div class="menu-item" data-target="wangzhe">
+                <div class="menu-left">
+                    <img class="app-icon" src="icon/wangzhe.png">
+                    <span class="app-name">王者荣耀</span>
+                </div>
+                <input type="checkbox" class="menu-check" data-target="wangzhe">
+            </div>
+
+            <div class="menu-item" data-target="alipay">
+                <div class="menu-left">
+                    <img class="app-icon" src="icon/alipay.png">
+                    <span class="app-name">支付宝</span>
+                </div>
+                <input type="checkbox" class="menu-check" data-target="alipay">
+            </div>
+
+            <div class="menu-item" data-target="pubg">
+                <div class="menu-left">
+                    <img class="app-icon" src="icon/pubg.png">
+                    <span class="app-name">和平精英</span>
+                </div>
+                <input type="checkbox" class="menu-check" data-target="pubg">
+            </div>
+
+        </div>
+
+        <div class="content">
+            <div class="card tutorial show" id="wechat">
+                <div class="top-row">
+                    <h2>微信 拉黑教程</h2>
+                    <div class="right-check">
+                        <input type="checkbox" id="r-wechat">
+                        <label for="r-wechat">已完成拉黑</label>
+                    </div>
+                </div>
+                <div class="step">
+                    <p>1. 进入对方聊天界面或个人主页</p>
+                    <img class="step-img" src="wechat1.png">
+                </div>
+                <div class="step">
+                    <p>2. 点击右上角「...」</p>
+                    <img class="step-img" src="wechat2.png">
+                </div>
+                <div class="step">
+                    <p>3. 开启「加入黑名单」</p>
+                    <img class="step-img" src="wechat3.png">
+                </div>
+            </div>
+
+            <div class="card tutorial" id="qq">
+                <div class="top-row">
+                    <h2>QQ 拉黑教程</h2>
+                    <div class="right-check">
+                        <input type="checkbox" id="r-qq">
+                        <label for="r-qq">已完成拉黑</label>
+                    </div>
+                </div>
+                <div class="step"><p>1. 进入对方资料卡</p><img class="step-img" src="qq1.png"></div>
+                <div class="step"><p>2. 点击右上角设置</p><img class="step-img" src="qq2.png"></div>
+                <div class="step"><p>3. 选择拉黑并确认</p><img class="step-img" src="qq3.png"></div>
+            </div>
+
+            <div class="card tutorial" id="douyin">
+                <div class="top-row">
+                    <h2>抖音 拉黑教程</h2>
+                    <div class="right-check">
+                        <input type="checkbox" id="r-douyin">
+                        <label for="r-douyin">已完成拉黑</label>
+                    </div>
+                </div>
+                <div class="step"><p>1. 进入对方主页</p><img class="step-img" src="douyin1.png"></div>
+                <div class="step"><p>2. 点击右上角三个点</p><img class="step-img" src="douyin2.png"></div>
+                <div class="step"><p>3. 点击拉黑确认</p><img class="step-img" src="douyin3.png"></div>
+            </div>
+
+            <div class="card tutorial" id="kuaishou">
+                <div class="top-row">
+                    <h2>快手 拉黑教程</h2>
+                    <div class="right-check">
+                        <input type="checkbox" id="r-kuaishou">
+                        <label for="r-kuaishou">已完成拉黑</label>
+                    </div>
+                </div>
+                <div class="step"><p>1. 进入对方主页</p><img class="step-img" src="kuaishou1.png"></div>
+                <div class="step"><p>2. 点击右上角更多</p><img class="step-img" src="kuaishou2.png"></div>
+                <div class="step"><p>3. 确认拉黑</p><img class="step-img" src="kuaishou3.png"></div>
+            </div>
+
+            <div class="card tutorial" id="xiaohongshu">
+                <div class="top-row">
+                    <h2>小红书 拉黑教程</h2>
+                    <div class="right-check">
+                        <input type="checkbox" id="r-xiaohongshu">
+                        <label for="r-xiaohongshu">已完成拉黑</label>
+                    </div>
+                </div>
+                <div class="step"><p>1. 进入对方主页</p><img class="step-img" src="xiaohongshu1.png"></div>
+                <div class="step"><p>2. 点击右上角三个点</p><img class="step-img" src="xiaohongshu2.png"></div>
+                <div class="step"><p>3. 选择拉黑</p><img class="step-img" src="xiaohongshu3.png"></div>
+            </div>
+
+            <div class="card tutorial" id="bilibili">
+                <div class="top-row">
+                    <h2>B站 拉黑教程</h2>
+                    <div class="right-check">
+                        <input type="checkbox" id="r-bilibili">
+                        <label for="r-bilibili">已完成拉黑</label>
+                    </div>
+                </div>
+                <div class="step"><p>1. 进入对方空间</p><img class="step-img" src="bilibili1.png"></div>
+                <div class="step"><p>2. 点击更多</p><img class="step-img" src="bilibili2.png"></div>
+                <div class="step"><p>3. 加入黑名单</p><img class="step-img" src="bilibili3.png"></div>
+            </div>
+
+            <div class="card tutorial" id="wangzhe">
+                <div class="top-row">
+                    <h2>王者荣耀 拉黑教程</h2>
+                    <div class="right-check">
+                        <input type="checkbox" id="r-wangzhe">
+                        <label for="r-wangzhe">已完成拉黑</label>
+                    </div>
+                </div>
+                <div class="step"><p>1. 打开游戏好友界面</p><img class="step-img" src="wangzhe1.png"></div>
+                <div class="step"><p>2. 进入好友资料</p><img class="step-img" src="wangzhe2.png"></div>
+                <div class="step"><p>3. 屏蔽/拉黑</p><img class="step-img" src="wangzhe3.png"></div>
+            </div>
+
+            <div class="card tutorial" id="alipay">
+                <div class="top-row">
+                    <h2>支付宝 拉黑教程</h2>
+                    <div class="right-check">
+                        <input type="checkbox" id="r-alipay">
+                        <label for="r-alipay">已完成拉黑</label>
+                    </div>
+                </div>
+                <div class="step"><p>1. 进入对方支付宝个人主页</p><img class="step-img" src="alipay1.png"></div>
+                <div class="step"><p>2. 点击右上角更多选项</p><img class="step-img" src="alipay2.png"></div>
+                <div class="step"><p>3. 选择加入黑名单</p><img class="step-img" src="alipay3.png"></div>
+            </div>
+
+            <div class="card tutorial" id="pubg">
+                <div class="top-row">
+                    <h2>和平精英 拉黑教程</h2>
+                    <div class="right-check">
+                        <input type="checkbox" id="r-pubg">
+                        <label for="r-pubg">已完成拉黑</label>
+                    </div>
+                </div>
+                <div class="step"><p>1. 打开游戏，进入好友列表</p><img class="step-img" src="pubg1.png"></div>
+                <div class="step"><p>2. 找到好友并查看资料</p><img class="step-img" src="pubg2.png"></div>
+                <div class="step"><p>3. 点击屏蔽/拉黑</p><img class="step-img" src="pubg3.png"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const menuItems = document.querySelectorAll('.menu-item');
+        const tutorials = document.querySelectorAll('.tutorial');
+
+        menuItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                if(e.target.tagName === 'INPUT') return;
+                let target = item.dataset.target;
+                let el = document.getElementById(target);
+
+                // 切换显示
+                menuItems.forEach(m => m.classList.remove('active'));
+                tutorials.forEach(t => t.classList.remove('show'));
+
+                item.classList.add('active');
+                el.classList.add('show');
+
+                // 手机自动跳转到截图
+                setTimeout(() => {
+                    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+            });
+        });
+
+        // 左右勾选同步
+        const leftChecks = document.querySelectorAll('.menu-check');
+        const rightChecks = document.querySelectorAll('.right-check input');
+
+        leftChecks.forEach(cb => {
+            cb.addEventListener('change', () => {
+                let id = cb.dataset.target;
+                document.getElementById('r-' + id).checked = cb.checked;
+            });
+        });
+
+        rightChecks.forEach(cb => {
+            cb.addEventListener('change', () => {
+                let id = cb.id.replace('r-', '');
+                document.querySelector(`.menu-check[data-target="${id}"]`).checked = cb.checked;
+            });
+        });
+    </script>
+</body>
+</html>
